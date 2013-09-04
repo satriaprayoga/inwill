@@ -28,7 +28,7 @@ public class SnmpManager {
 	public static void main(String[] args) throws Exception{
 		SnmpManager client=new SnmpManager("udp:192.168.1.1/161");
 		client.start();
-		String varString=client.getAsString(new OID(".1.3.6.1.2.1.1.1.0"));
+		String varString=client.getAsString(new OID(".1.3.6.1.2.1.4.21.0"));
 		System.out.println(varString);
 	}
 	
