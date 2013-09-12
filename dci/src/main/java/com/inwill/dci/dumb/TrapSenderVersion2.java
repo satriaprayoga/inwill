@@ -21,9 +21,9 @@ public class TrapSenderVersion2 {
 	
 	public static final String Oid = ".1.3.6.1.2.1.1.8";
 
-	public static final String ipAddress = "127.0.0.1";
+	public static final String ipAddress = "192.168.7.103";
 
-	public static final int port = 162;
+	public static final int port = 165;
 
 	public static void main(String[] args) {
 		TrapSenderVersion2 trapV2 = new TrapSenderVersion2();
@@ -57,7 +57,8 @@ public class TrapSenderVersion2 {
 
 			pdu.add(new VariableBinding(new OID(Oid), new OctetString(
 					"Major")));
-			pdu.setType(PDU.NOTIFICATION);
+			//pdu.add(new VariableBinding(SnmpConstants.)
+			//pdu.setType(PDU.NOTIFICATION);
 
 			// Send the PDU
 			Snmp snmp = new Snmp(transport);
