@@ -216,5 +216,6 @@
 	</pluginRepositories>
 	<modules>
 		<module>dci</module>
+		<module>emulator</module>
 	</modules>
 </project>
