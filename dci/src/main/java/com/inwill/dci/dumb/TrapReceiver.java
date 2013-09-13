@@ -29,7 +29,11 @@ public class TrapReceiver implements CommandResponder {
 	public static void main(String[] args) {
 		TrapReceiver receiver=new TrapReceiver();
 		try {
+
 			receiver.listen(new UdpAddress("localhost/162"));
+
+			receiver.listen(new UdpAddress("192.168.7.103/165"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

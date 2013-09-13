@@ -1,6 +1,9 @@
 package com.inwill.dci.dumb;
 
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -20,8 +23,8 @@ public class SnmpWalk {
 	
 	public static void main(String[] args)
 	  {
-	    Address targetAddress = new UdpAddress("192.168.7.103/161");
-	    OID targetOID         = new OID("1.3.6.1.2.1.1");
+	    Address targetAddress = new UdpAddress("192.168.3.1/161");
+	    OID targetOID         = new OID("1.3.6.1.2.1.11");
 //	    OID targetOID         = new OID("1.3.6.1.4.1.517");
 
 
@@ -35,6 +38,8 @@ public class SnmpWalk {
 	    target.setCommunity(new OctetString("public"));
 	    target.setAddress(targetAddress);
 	    target.setVersion(SnmpConstants.version2c);
+	    
+	    Map<String, String> deviceMap=new HashMap<>();
 
 	    try
 	    {
@@ -56,51 +61,51 @@ public class SnmpWalk {
 
 	        if (responsePDU == null)
 	        {
-	          System.out.println("responsePDU == null");
+	        //  System.out.println("responsePDU == null");
 	          finished = true;
 	        }
 	        else if (responsePDU.getErrorStatus() != 0)
 	        {
-	          System.out.println("responsePDU.getErrorStatus() != 0");
-	          System.out.println(responsePDU.getErrorStatusText());
+	         // System.out.println("responsePDU.getErrorStatus() != 0");
+	         // System.out.println(responsePDU.getErrorStatusText());
 	          finished = true;
 	        }
 	        else if (vb.getOid() == null)
 	        {
-	          System.out.println("vb.getOid() == null");
+	        //  System.out.println("vb.getOid() == null");
 	          finished = true;
 	        }
 	        else if (vb.getOid().size() < targetOID.size())
 	        {
-	          System.out.println("vb.getOid().size() < targetOID.size()");
+	         // System.out.println("vb.getOid().size() < targetOID.size()");
 	          finished = true;
 	        }
 	        else if (targetOID.leftMostCompare(targetOID.size(),
 	                                           vb.getOid()) != 0)
 	        {
-	          System.out.println("targetOID.leftMostCompare() != 0)");
+	          //System.out.println("targetOID.leftMostCompare() != 0)");
 	          finished = true;
 	        }
 	        else if (Null.isExceptionSyntax(vb.getVariable().getSyntax()))
 	        {
-	          System.out.println(
-	          "Null.isExceptionSyntax(vb.getVariable().getSyntax())");
+	         // System.out.println(
+	         // "Null.isExceptionSyntax(vb.getVariable().getSyntax())");
 	          finished = true;
 	        }
 	        else if (vb.getOid().compareTo(targetOID) <= 0)
 	        {
-	          System.out.println("Variable received is not "+
-	                       "lexicographic successor of requested "+
-	                       "one:");
-	          System.out.println(vb.toString() + " <= "+targetOID);
+	         // System.out.println("Variable received is not "+
+	         //              "lexicographic successor of requested "+
+	         //              "one:");
+	         // System.out.println(vb.toString() + " <= "+targetOID);
 	          finished = true;
 
 	        }
 	        else
 	        {
 	          // Dump response.
-	          System.out.println(vb.toString());
-
+	         // System.out.println(vb.toString());
+	          deviceMap.put(vb.getOid().toString(), vb.getVariable().toString());
 	          // Set up the variable binding for the next entry.
 	          requestPDU.setRequestID(new Integer32(0));
 	          requestPDU.set(0, vb);
@@ -113,6 +118,12 @@ public class SnmpWalk {
 	    catch (IOException e)
 	    {
 	      System.out.println("IOException: "+e);
+	    }
+	    
+	    if(!deviceMap.isEmpty()){
+	    	  for(String s:deviceMap.keySet()){
+	  	    	System.out.println(s+" : "+deviceMap.get(s));
+	  	    }
 	    }
 
 	  }

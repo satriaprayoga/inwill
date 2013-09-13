@@ -57,6 +57,7 @@ public class TrapSenderVersion2 {
 
 			pdu.add(new VariableBinding(new OID(Oid), new OctetString(
 					"Major")));
+
 			pdu.setType(PDU.NOTIFICATION);
 
 			// Send the PDU
