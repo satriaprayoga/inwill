@@ -13,5 +13,5 @@ public interface Device extends Serializable{
 
 	public String getAddress();
 	public String getCommunity();
-	public String getVersion();
+	public int getVersion();
 }
