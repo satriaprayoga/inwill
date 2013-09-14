@@ -60,7 +60,7 @@ public class WalkSnmpProcessor extends SnmpProcessor {
 				} else if (targetOID.leftMostCompare(targetOID.size(),
 						vb.getOid()) != 0) {
 
-					log.info("targetOID.leftMostCompare() != 0)");
+//					log.info("targetOID.leftMostCompare() != 0)");
 					finished = true;
 				} else if (Null.isExceptionSyntax(vb.getVariable().getSyntax())) {
 					log.info("Null.isExceptionSyntax(vb.getVariable().getSyntax())");

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.snmp4j.PDU;
 import org.snmp4j.smi.OID;
+import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.VariableBinding;
 
 /**
@@ -85,6 +86,9 @@ public class SnmpMessage implements Serializable{
 		PDU pdu=new PDU();
 		if(oid!=null && !(oid.isEmpty())){
 			VariableBinding vb=new VariableBinding(new OID(oid));
+			if(mib!=null && !(mib.isEmpty())){
+				vb.setVariable(new OctetString(mib));
+			}
 			pdu.add(vb);
 			pdu.setType(pduType);
 			return pdu;
