@@ -80,6 +80,7 @@ public class WalkSnmpProcessor extends SnmpProcessor {
 					requestPDU.set(0, vb);
 				}
 			}
+			snmp.close();
 		} catch (IOException e) {
 
 			e.printStackTrace();

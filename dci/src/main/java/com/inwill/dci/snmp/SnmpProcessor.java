@@ -16,6 +16,9 @@ import org.snmp4j.smi.UdpAddress;
  */
 public abstract class SnmpProcessor {
 	
+	protected static final long RTO=1500;
+	protected static final int RETRIES=2;
+	
 	protected PDU requestPDU;
 	protected Address targetAddress;
 	protected CommunityTarget communityTarget;

@@ -3,6 +3,8 @@
  */
 package com.inwill.dci.snmp;
 
+import org.snmp4j.mp.SnmpConstants;
+
 /**
  * @author G.S Prayoga of SWG
  *
@@ -16,6 +18,13 @@ public class SnmpDevice implements Device{
 	private int version;
 	
 	public SnmpDevice(String address,String community,int version) {
+		this.address=address;
+		this.community=community;
+		this.version=version;
+	}
+	
+	public SnmpDevice(String address,String community) {
+		this(address, community, SnmpConstants.version2c);
 	}
 
 	public String getAddress() {
