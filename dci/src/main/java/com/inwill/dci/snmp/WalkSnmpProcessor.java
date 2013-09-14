@@ -1,21 +1,16 @@
 /**
  * 
  */
-package com.inwill.dci;
+package com.inwill.dci.snmp;
 
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
 import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
-import org.snmp4j.smi.Address;
 import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.Null;
-import org.snmp4j.smi.OID;
-import org.snmp4j.smi.OctetString;
-import org.snmp4j.smi.UdpAddress;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
@@ -23,21 +18,22 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
  * @author G.S Prayoga of SWG
  * 
  */
-public class WalkSnmpProcessor implements SnmpProcessor {
+public class WalkSnmpProcessor extends SnmpProcessor {
 
 	private final static Logger log = Logger.getLogger(WalkSnmpProcessor.class);
 
 	@Override
 	public void process(SnmpMessage snmpMessage, Device device) {
-		Address targetAddress = new UdpAddress(device.getAddress());
-		OID targetOID = new OID(snmpMessage.getOid());
-
-		PDU requestPDU = snmpMessage.toRequestPDU(PDU.GETNEXT);
-
-		CommunityTarget communityTarget = new CommunityTarget();
-		communityTarget.setAddress(targetAddress);
-		communityTarget.setCommunity(new OctetString(device.getCommunity()));
-		communityTarget.setVersion(device.getVersion());
+		configTarget(snmpMessage, device, PDU.GETNEXT);
+//		Address targetAddress = new UdpAddress(device.getAddress());
+//		OID targetOID = new OID(snmpMessage.getOid());
+//
+//		PDU requestPDU = snmpMessage.toRequestPDU(PDU.GETNEXT);
+//
+//		CommunityTarget communityTarget = new CommunityTarget();
+//		communityTarget.setAddress(targetAddress);
+//		communityTarget.setCommunity(new OctetString(device.getCommunity()));
+//		communityTarget.setVersion(device.getVersion());
 
 		try {
 			TransportMapping<?> transport = new DefaultUdpTransportMapping();

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inwill.dci;
+package com.inwill.dci.snmp;
 
 import java.io.Serializable;
 
