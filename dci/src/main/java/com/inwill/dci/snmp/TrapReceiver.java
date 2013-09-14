@@ -1,7 +1,11 @@
-package com.inwill.dci.dumb;
+/**
+ * 
+ */
+package com.inwill.dci.snmp;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.snmp4j.CommandResponder;
 import org.snmp4j.CommandResponderEvent;
 import org.snmp4j.CommunityTarget;
@@ -24,22 +28,14 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 import org.snmp4j.util.MultiThreadedMessageDispatcher;
 import org.snmp4j.util.ThreadPool;
 
-public class TrapReceiver implements CommandResponder {
+/**
+ * @author G.S Prayoga of SWG
+ *
+ */
+public class TrapReceiver implements CommandResponder{
 	
-	public static void main(String[] args) {
-		TrapReceiver receiver=new TrapReceiver();
-		try {
-
-			receiver.listen(new UdpAddress("localhost/162"));
-
-			receiver.listen(new UdpAddress("192.168.7.103/165"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	private final static Logger log=Logger.getLogger(TrapReceiver.class);
+	
 	public synchronized void listen(TransportIpAddress address)throws IOException{
 		AbstractTransportMapping<?> transport=null;
 		if(address instanceof TcpAddress){
@@ -64,7 +60,7 @@ public class TrapReceiver implements CommandResponder {
 		snmp.addCommandResponder(this);
 		
 		transport.listen();
-		System.out.println("listening on : "+address);
+		log.info("listening on : "+address);
 		
 		try {
 			wait();
@@ -73,13 +69,15 @@ public class TrapReceiver implements CommandResponder {
 		}
 	}
 
+
 	@Override
-	public  synchronized void processPdu(CommandResponderEvent event) {
-		System.out.println("receiving PDU: ");
+	public void processPdu(CommandResponderEvent event) {
+		log.info("receiving PDU: ");
 		PDU pdu=event.getPDU();
 		if(pdu!=null){
-			System.out.println("Trap types: "+pdu.getType());
-			System.out.println("Variables: "+pdu.getVariableBindings());
+			log.info("Trap types: "+pdu.getType());
+			log.info("Variables: "+pdu.getVariableBindings());
 		}
 	}
+
 }
