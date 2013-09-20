@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inwill.dci.snmp;
+package com.inwill.processor;
 
 import java.io.IOException;
 
@@ -11,6 +11,9 @@ import org.snmp4j.Snmp;
 import org.snmp4j.TransportMapping;
 import org.snmp4j.event.ResponseEvent;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
+
+import com.inwill.dci.snmp.Device;
+import com.inwill.dci.snmp.SnmpMessage;
 
 /**
  * @author G.S Prayoga of SWG

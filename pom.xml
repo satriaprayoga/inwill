@@ -218,5 +218,6 @@
 		<module>dci</module>
 
 		<module>emulator</module>
+		<module>processor</module>
 	</modules>
 </project>

@@ -5,7 +5,6 @@ package com.inwill.dci.snmp;
 
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.snmp4j.CommandResponder;
 import org.snmp4j.CommandResponderEvent;
 import org.snmp4j.CommunityTarget;
@@ -32,11 +31,11 @@ import org.snmp4j.util.ThreadPool;
  * @author G.S Prayoga of SWG
  *
  */
-public class TrapReceiver implements CommandResponder{
+public abstract class DeviceListener implements CommandResponder{
 	
-	private final static Logger log=Logger.getLogger(TrapReceiver.class);
-	
-	public synchronized void listen(TransportIpAddress address)throws IOException{
+	protected abstract void onPDUEvent(PDU pdu);
+
+	public synchronized void listen(TransportIpAddress address) throws IOException{
 		AbstractTransportMapping<?> transport=null;
 		if(address instanceof TcpAddress){
 			transport=new DefaultTcpTransportMapping((TcpAddress)address);
@@ -60,7 +59,6 @@ public class TrapReceiver implements CommandResponder{
 		snmp.addCommandResponder(this);
 		
 		transport.listen();
-		log.info("listening on : "+address);
 		
 		try {
 			wait();
@@ -68,16 +66,13 @@ public class TrapReceiver implements CommandResponder{
 			e.printStackTrace();
 		}
 	}
-
-
 	@Override
 	public void processPdu(CommandResponderEvent event) {
-		log.info("receiving PDU: ");
 		PDU pdu=event.getPDU();
 		if(pdu!=null){
-			log.info("Trap types: "+pdu.getType());
-			log.info("Variables: "+pdu.getVariableBindings());
+			onPDUEvent(pdu);
+		}else{
+			//NO PDU
 		}
 	}
-
 }

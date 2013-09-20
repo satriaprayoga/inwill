@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inwill.dci.snmp;
+package com.inwill.processor;
 
 import java.io.IOException;
 
@@ -13,6 +13,9 @@ import org.snmp4j.smi.Integer32;
 import org.snmp4j.smi.Null;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
+
+import com.inwill.dci.snmp.Device;
+import com.inwill.dci.snmp.SnmpMessage;
 
 /**
  * @author G.S Prayoga of SWG

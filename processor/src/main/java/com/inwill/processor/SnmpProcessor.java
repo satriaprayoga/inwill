@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inwill.dci.snmp;
+package com.inwill.processor;
 
 import org.snmp4j.CommunityTarget;
 import org.snmp4j.PDU;
@@ -9,6 +9,9 @@ import org.snmp4j.smi.Address;
 import org.snmp4j.smi.OID;
 import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.UdpAddress;
+
+import com.inwill.dci.snmp.Device;
+import com.inwill.dci.snmp.SnmpMessage;
 
 /**
  * @author G.S Prayoga of SWG
